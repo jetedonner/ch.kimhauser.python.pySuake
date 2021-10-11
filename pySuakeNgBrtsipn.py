@@ -56,6 +56,9 @@ def thread_function(screen):
     while bstop:
     	chOld = ch
     	ch = screen2.getch()
+    	if((chOld == ord('a') and ch == ord('d')) or (chOld == ord('d') and ch == ord('a')) or (chOld == ord('w') and ch == ord('s')) or (chOld == ord('s') and ch == ord('w'))):
+    		ch = chOld
+    	
     	if ch == ord('q'):
     		 break
     	elif ch == ord('g'):
@@ -135,10 +138,6 @@ def gameboard(window):
     genGoodyPos(screen)
     t = threading.Thread(target=thread_function, args=(screen,))
     t.start()
-    #screen.box(61, 65)
-    #txtbx = curses.textpad.Textbox(screen)
-    #curses.textpad.rectangle(screen, 20, 20, 21, 35)
-    #txtbx.edit()
     starttime = time.time()
     bshowinghs = False
     while True:
@@ -152,10 +151,8 @@ def gameboard(window):
     			print('\a')
     			genGoodyPos(screen)
     			bexpand = True
-    		#screen.clear()
     		screen.erase()
     		screen.border(0,0,0,0)
-    		#screen.box(61, 65)
     		screen.addstr(0,4, f'{score}')
     		screen.addstr(0,14, f'{rows}/{cols}')
     		screen.addstr(0,20,f'{len(suakePos)}')
@@ -176,28 +173,20 @@ def gameboard(window):
     			
     		screen.addstr(0,38, f'{timestr}')
     		if not bgameover:
-    			#screen.addstr(y,x, ' ')
     			for pos in suakePos:
     				screen.addstr(pos[0],pos[1], suakeChar)
     		else:
     			screen.addstr(int(rows / 2), int((cols / 2) - 5), 'GAME OVER!')
     			
     		screen.addstr(gY,gX, goodyChar)
-    		#screen.noutrefresh()
-    		#curses.doupdate()
     		time.sleep(timeout)
     		
     		if ch == ord('q'):
     			break
     		elif ch == ord('h') and not bshowinghs:
     			bshowinghs = True
-    			#appendHighscore()
     			readHighscore()
     			time.sleep(5.0)
-    			#break
-    		#elif ch == ord('g'):
-    		#	genGoodyPos(screen)
-    		#	ch = ' '
     		elif ch == curses.KEY_RESIZE:
     			screen.border(0,0,0,0)
     			genGoodyPos(screen)
@@ -210,8 +199,6 @@ def gameboard(window):
     				break
     	finally:
     		screen.refresh()
-    		#pass
-    		#curses.endwin()
     appendHighscore('Kim', score)
     readHighscore()
 
