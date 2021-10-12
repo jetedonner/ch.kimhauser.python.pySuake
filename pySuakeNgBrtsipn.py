@@ -6,20 +6,13 @@ import sys
 import random
 from operator import itemgetter
 import pickle
+#simple men
 
 
 def appendHighscore(player = 'DaVe', score = 1238):
 	high_scores = [
 	('Liz', 100),
-    #('Desi', 200),
-    #('Mike', 300),
     ]
-    #print('123')
-	
-	#print('123')
-	#with open('highscores.txt', 'wb') as f:
-	#	pickle.dump(high_scores, f)
-	#return
 	
 	with open('highscores.txt', 'rb') as f:
 		high_scores = pickle.load(f)
@@ -45,7 +38,6 @@ def readHighscore():
 			screen2.addstr(5 + i,4, f'{i}: {player}: {score}')
 			i += 1
 		screen2.refresh()
-			#print(f'{player}: {score}\n')
 
 def thread_function(screen):
     global bstop
@@ -58,7 +50,7 @@ def thread_function(screen):
     	ch = screen2.getch()
     	if((chOld == ord('a') and ch == ord('d')) or (chOld == ord('d') and ch == ord('a')) or (chOld == ord('w') and ch == ord('s')) or (chOld == ord('s') and ch == ord('w'))):
     		ch = chOld
-    	
+
     	if ch == ord('q'):
     		 break
     	elif ch == ord('g'):
@@ -119,7 +111,6 @@ def gameboard(window):
     screen = curses.initscr()
     curses.noecho()
     curses.curs_set(0)
-    #curses.nocbreak()
     curses.nonl()
     curses.resizeterm(61,65)
     screen2 = screen
@@ -127,7 +118,6 @@ def gameboard(window):
     ch = ord('d')
     timeout = 0.25
     goodyChar = '◉'#'G' #'◉'#'@'
-    #suakeChar = '█'
     suakeChar = '▣'#''X' #'▣'#' '▮'
     score = 0
     x = 10
